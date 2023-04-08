@@ -1,4 +1,4 @@
-Static Web Site Link: https://gentle-wave-06d1f8e1e.3.azurestaticapps.net
+Static Web Site Link: https://green-glacier-0a79c2b1e.3.azurestaticapps.net
 
 ## Instructors ##
 [Grant Erickson](https://github.com/GrantErickson), [Meg Woodford](https://github.com/mmwoodfo), and [Mark Michaelis](https://github.com/MarkMichaelis)
