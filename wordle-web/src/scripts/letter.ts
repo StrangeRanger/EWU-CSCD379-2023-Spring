@@ -7,25 +7,24 @@ export enum LetterStatus {
     Wrong
 }
 
-
 export class Letter {
-    letter: string;
-    status: LetterStatus = LetterStatus.NotGuessed;
+    letter: string
+    status: LetterStatus = LetterStatus.NotGuessed
 
     constructor(letter: string) {
-        this.letter = letter;
+        this.letter = letter
     }
 
     get color() {
         switch (this.status) {
             case LetterStatus.Correct:
-                return 'green';
+                return 'green'
             case LetterStatus.Misplaced:
-                return 'orange';
+                return 'orange'
             case LetterStatus.Wrong:
-                return 'red';
+                return 'red'
             default:
-                return 'grey';
+                return 'grey'
         }
     }
 }
