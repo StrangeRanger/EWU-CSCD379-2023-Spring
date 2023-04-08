@@ -1,7 +1,7 @@
 <template>
   <div class="games">
     <v-card>
-      <v-card-title> Wordle World </v-card-title>
+      <v-card-title> Wordle World </v-card-title> 
       <v-card-subtitle> CSCD 379 </v-card-subtitle>
 
       <v-card-text>
