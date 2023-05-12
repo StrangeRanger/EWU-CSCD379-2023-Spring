@@ -9,46 +9,49 @@ export enum WordleGameStatus {
 }
 
 export class WordleGame {
-  constructor(secretWord?: string, numberOfGuesses: number = 6) {
-    if (!secretWord) secretWord = WordsService.getRandomWord()
-    this.numberOfGuesses = numberOfGuesses
-    this.restartGame(secretWord)
-  }
   guessedLetters: Letter[] = []
-  guesses = new Array<Word>()
-  secretWord = ''
-  status = WordleGameStatus.Active
+  guesses: Word[] = new Array<Word>()
+  guessAttempts: number = 0
+  secretWord: string = ''
+  status: WordleGameStatus = WordleGameStatus.Active
   guess!: Word
-  numberOfGuesses = 6
+  numberOfGuesses: number = 6
 
-  // // check length of guess
-  //   if (this.letters.length !== secretWord.length) {
-  //     console.log('wrong length')
-  //     return
-  //   }
+  constructor(secretWord?: string, numberOfGuesses: number = 6) {
+    this.numberOfGuesses = numberOfGuesses
 
-  restartGame(secretWord?: string | null, numberOfGuesses: number = 6) {
-    this.secretWord = secretWord || WordsService.getRandomWord()
+    if (!secretWord) {
+      secretWord = 'null'
+    }
+
+    this.startNewGame(secretWord)
+  }
+
+  async startNewGame(secretWord: string, numberOfGuesses: number = 6) {
+    this.secretWord = secretWord || (await WordsService.getWordFromApi())
+    await WordsService.getWordListFromApi()
     this.guesses.splice(0)
-    // create a word for each guess
+
+    // Create a word for each guess.
     for (let i = 0; i < numberOfGuesses; i++) {
       const word = new Word()
       this.guesses.push(word)
     }
+
     this.guess = this.guesses[0]
     this.status = WordleGameStatus.Active
   }
 
   submitGuess() {
-    // put logic to win here.
-    this.guess.check(this.secretWord)
-
-    // Update the guessed letters
+    const correctlyGuessed: boolean = this.guess.checkWord(this.secretWord)
+    this.guessAttempts++
+    // TODO: Go back and fix possible problems pointed out by Meg in Assignment 1 or 2...
+    // Update the guessed letters.
     for (const guessLetter of this.guess.letters) {
       for (const guessedLetter of this.guessedLetters) {
         if (guessLetter.char === guessedLetter.char) {
           if (guessedLetter.status === LetterStatus.Correct) {
-            continue
+            /* empty */
           } else if (
             guessedLetter.status === LetterStatus.Misplaced &&
             guessLetter.status === LetterStatus.Correct
@@ -58,7 +61,7 @@ export class WordleGame {
             guessedLetter.status === LetterStatus.Misplaced &&
             guessLetter.status === LetterStatus.Wrong
           ) {
-            continue
+            /* empty */
           } else if (
             guessedLetter.status === LetterStatus.Wrong &&
             guessLetter.status === LetterStatus.Misplaced
@@ -79,11 +82,22 @@ export class WordleGame {
 
     console.log(this.guessedLetters)
 
-    const index = this.guesses.indexOf(this.guess)
-    if (index < this.guesses.length - 1) {
+    const index: number = this.guesses.indexOf(this.guess)
+    if (index < this.guesses.length - 1 && !correctlyGuessed) {
       this.guess = this.guesses[index + 1]
     } else {
-      // The game is over
+      this.gameOver(correctlyGuessed)
+    }
+  }
+
+  // TODO: Find a way to disable not just input, but the ability to backspace.
+  gameOver(correctlyGuessed: boolean) {
+    if (correctlyGuessed) {
+      this.status = WordleGameStatus.Won
+      console.log('You Win!')
+    } else {
+      this.status = WordleGameStatus.Lost
+      console.log('You Lose!')
     }
   }
 }
