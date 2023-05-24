@@ -27,14 +27,14 @@ public static class Seeder
     {
         if (!db.Players.Any())
         {
-            db.Players.Add(new Player { PlayerName = "John", AverageAttempts = 3.2,
-                                        AverageSecondsPerGame = 120, GameCount = 12,
+            db.Players.Add(new Player { PlayerName = "Sam", AverageAttempts = 4.5,
+                                        AverageSecondsPerGame = 62, GameCount = 25,
                                         PlayerId = Guid.NewGuid() });
-            db.Players.Add(new Player { PlayerName = "Mary", AverageAttempts = 2.5,
-                                        AverageSecondsPerGame = 90, GameCount = 34,
+            db.Players.Add(new Player { PlayerName = "James", AverageAttempts = 4.8,
+                                        AverageSecondsPerGame = 195, GameCount = 42,
                                         PlayerId = Guid.NewGuid() });
-            db.Players.Add(new Player { PlayerName = "Bob", AverageAttempts = 2.8,
-                                        AverageSecondsPerGame = 80, GameCount = 45,
+            db.Players.Add(new Player { PlayerName = "Kelly", AverageAttempts = 3.5,
+                                        AverageSecondsPerGame = 30, GameCount = 55,
                                         PlayerId = Guid.NewGuid() });
             db.Players.Add(new Player { PlayerName = "Susan", AverageAttempts = 2.7,
                                         AverageSecondsPerGame = 70, GameCount = 23,

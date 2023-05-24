@@ -1,5 +1,5 @@
-namespace Wordle.Api.Data
-{
+namespace Wordle.Api.Data;
+
 public class Player
 {
     public Guid PlayerId { get; set; }
@@ -9,5 +9,4 @@ public class Player
     public int AverageSecondsPerGame { get; set; }
     public double TotalAttempts { get; set; }
     public double AverageAttempts { get; set; }
-}
 }

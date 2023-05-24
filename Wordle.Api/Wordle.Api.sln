@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordle.Api", "Wordle.Api\Wordle.Api.csproj", "{0FC42F8C-9E3E-4CBD-B50C-17B540C79699}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordle.Api.Tests", "Wordle.Api.Tests\Wordle.Api.Tests.csproj", "{258910BC-41D9-4B2F-89B1-CABD2425E28B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0FC42F8C-9E3E-4CBD-B50C-17B540C79699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC42F8C-9E3E-4CBD-B50C-17B540C79699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC42F8C-9E3E-4CBD-B50C-17B540C79699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{258910BC-41D9-4B2F-89B1-CABD2425E28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{258910BC-41D9-4B2F-89B1-CABD2425E28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{258910BC-41D9-4B2F-89B1-CABD2425E28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{258910BC-41D9-4B2F-89B1-CABD2425E28B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
