@@ -38,7 +38,7 @@ public class WordController : ControllerBase
         return (await _wordService.GetWordOfTheDayStatsAsync(date, days, playerId));
     }
 
-    [HttpGet("GetWordList")]
+    [HttpGet("WordList")]
     public async Task<List<string>> GetWordList()
     {
         return await _wordService.GetWordList();
