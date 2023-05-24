@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("UseSwag
 
 // Add a redirect for the root URL
 var redirectRootUrl = app.Configuration.GetValue<string>("RedirectRootUrl", "");
-if (string.IsNullOrEmpty(redirectRootUrl)) redirectRootUrl = "https://purple-rock-0b124a41e.3.azurestaticapps.net/";
+if (string.IsNullOrEmpty(redirectRootUrl)) redirectRootUrl = "https://proud-desert-02a266210.3.azurestaticapps.net/";
 var options = new RewriteOptions()
         .AddRedirect("^$", redirectRootUrl, 302);
 app.UseRewriter(options);
@@ -68,9 +68,6 @@ app.UseRewriter(options);
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowAllOrigins);
-
-// Add Google site verification.
-app.MapGet("/google5b827f426094db3f.html", () => "google-site-verification: google5b827f426094db3f.html");
 
 app.UseAuthorization();
 
