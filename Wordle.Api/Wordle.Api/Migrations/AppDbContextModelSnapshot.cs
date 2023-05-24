@@ -43,7 +43,7 @@ namespace Wordle.Api.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("DateWords");
+                    b.ToTable("DateWords", (string)null);
                 });
 
             modelBuilder.Entity("Wordle.Api.Data.Player", b =>
@@ -73,7 +73,7 @@ namespace Wordle.Api.Migrations
 
                     b.HasKey("PlayerId");
 
-                    b.ToTable("Players");
+                    b.ToTable("Players", (string)null);
                 });
 
             modelBuilder.Entity("Wordle.Api.Data.PlayerGame", b =>
@@ -113,7 +113,7 @@ namespace Wordle.Api.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("PlayerGames");
+                    b.ToTable("PlayerGames", (string)null);
                 });
 
             modelBuilder.Entity("Wordle.Api.Data.Word", b =>
@@ -136,7 +136,7 @@ namespace Wordle.Api.Migrations
 
                     b.HasKey("WordId");
 
-                    b.ToTable("Words");
+                    b.ToTable("Words", (string)null);
                 });
 
             modelBuilder.Entity("Wordle.Api.Data.DateWord", b =>
