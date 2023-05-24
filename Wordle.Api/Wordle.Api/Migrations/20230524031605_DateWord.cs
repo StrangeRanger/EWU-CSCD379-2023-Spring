@@ -12,7 +12,7 @@ namespace Wordle.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DateWord",
+                name: "DateWords",
                 columns: table => new
                 {
                     DateWordId = table.Column<int>(type: "int", nullable: false)
@@ -22,17 +22,16 @@ namespace Wordle.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DateWord", x => x.DateWordId);
+                    table.PrimaryKey("PK_DateWords", x => x.DateWordId);
                     table.ForeignKey(
-                        name: "FK_DateWord_Words_WordId",
+                        name: "FK_DateWords_Words_WordId",
                         column: x => x.WordId,
                         principalTable: "Words",
-                        principalColumn: "WordId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "WordId");
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayerGame",
+                name: "PlayerGames",
                 columns: table => new
                 {
                     PlayerGameId = table.Column<int>(type: "int", nullable: false)
@@ -47,20 +46,20 @@ namespace Wordle.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayerGame", x => x.PlayerGameId);
+                    table.PrimaryKey("PK_PlayerGames", x => x.PlayerGameId);
                     table.ForeignKey(
-                        name: "FK_PlayerGame_DateWord_DateWordId",
+                        name: "FK_PlayerGames_DateWords_DateWordId",
                         column: x => x.DateWordId,
-                        principalTable: "DateWord",
+                        principalTable: "DateWords",
                         principalColumn: "DateWordId");
                     table.ForeignKey(
-                        name: "FK_PlayerGame_Players_PlayerId",
+                        name: "FK_PlayerGames_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "PlayerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlayerGame_Words_WordId",
+                        name: "FK_PlayerGames_Words_WordId",
                         column: x => x.WordId,
                         principalTable: "Words",
                         principalColumn: "WordId",
@@ -68,23 +67,29 @@ namespace Wordle.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DateWord_WordId",
-                table: "DateWord",
+                name: "IX_DateWords_Date",
+                table: "DateWords",
+                column: "Date",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DateWords_WordId",
+                table: "DateWords",
                 column: "WordId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerGame_DateWordId",
-                table: "PlayerGame",
+                name: "IX_PlayerGames_DateWordId",
+                table: "PlayerGames",
                 column: "DateWordId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerGame_PlayerId",
-                table: "PlayerGame",
+                name: "IX_PlayerGames_PlayerId",
+                table: "PlayerGames",
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerGame_WordId",
-                table: "PlayerGame",
+                name: "IX_PlayerGames_WordId",
+                table: "PlayerGames",
                 column: "WordId");
         }
 
@@ -92,10 +97,10 @@ namespace Wordle.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PlayerGame");
+                name: "PlayerGames");
 
             migrationBuilder.DropTable(
-                name: "DateWord");
+                name: "DateWords");
         }
     }
 }

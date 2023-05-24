@@ -38,9 +38,12 @@ namespace Wordle.Api.Migrations
 
                     b.HasKey("DateWordId");
 
+                    b.HasIndex("Date")
+                        .IsUnique();
+
                     b.HasIndex("WordId");
 
-                    b.ToTable("DateWord");
+                    b.ToTable("DateWords");
                 });
 
             modelBuilder.Entity("Wordle.Api.Data.Player", b =>
@@ -110,7 +113,7 @@ namespace Wordle.Api.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("PlayerGame");
+                    b.ToTable("PlayerGames");
                 });
 
             modelBuilder.Entity("Wordle.Api.Data.Word", b =>
@@ -141,7 +144,7 @@ namespace Wordle.Api.Migrations
                     b.HasOne("Wordle.Api.Data.Word", "Word")
                         .WithMany("DateWords")
                         .HasForeignKey("WordId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.Navigation("Word");
