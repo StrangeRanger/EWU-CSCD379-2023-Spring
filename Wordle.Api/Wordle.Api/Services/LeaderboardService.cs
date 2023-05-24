@@ -16,7 +16,7 @@ public class LeaderboardService
     public async Task<IEnumerable<Player>> GetTopTenScores()
     {
         var highScore = await _db.Players.Take(10)
-                            .OrderByDescending(player => player.AverageTimeInSeconds)
+                            .OrderByDescending(player => player.AverageSecondsPerGame)
                             .ToListAsync();
         return highScore;
     }
@@ -35,32 +35,10 @@ public class LeaderboardService
         return player;
     }
 
-    public async Task<Player> AddNewPlayer(string? playerName, int timeInSeconds, double attempts)
+    public async Task<Player> CreateAsync(string name)
     {
-        var name = "";
-        if (playerName is null || playerName == "")
-        {
-            name = "Guest";
-        }
-        else
-        {
-            name = playerName;
-        }
-        var player = await _db.Players.FirstOrDefaultAsync(p => p.PlayerName == playerName);
-        if (player != null)
-        {
-            player = await UpdatePlayer(name, timeInSeconds, attempts);
-            //_db.Players.Update(player);
-        }
-        else
-        {
-            player = new() {
-                PlayerName = name,          GameCount = 1,
-                TotalAttempts = attempts,   TotalTimeInSeconds = timeInSeconds,
-                AverageAttempts = attempts, AverageTimeInSeconds = timeInSeconds,
-            };
-            _db.Players.Add(player);
-        }
+        Player player = new() { PlayerName = name, PlayerId = Guid.NewGuid() };
+        _db.Players.Add(player);
         await _db.SaveChangesAsync();
         return player;
     }
@@ -70,10 +48,10 @@ public class LeaderboardService
         var player =
             await _db.Players.FirstOrDefaultAsync(player => player.PlayerName == playerName);
         player!.GameCount += 1;
-        player.TotalTimeInSeconds += timeInSeconds;
+        player.TotalSecondsPerGame += timeInSeconds;
         player.TotalAttempts += attempts;
         player.AverageAttempts = player.TotalAttempts / player.GameCount;
-        player.AverageTimeInSeconds = player.TotalTimeInSeconds / player.GameCount;
+        player.AverageSecondsPerGame = player.TotalSecondsPerGame / player.GameCount;
 
         return player;
     }
