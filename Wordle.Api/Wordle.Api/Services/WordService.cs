@@ -29,10 +29,10 @@ public class WordService
         {
             date = DateTime.UtcNow.AddHours(offset.TotalHours).Date;
         }
-    
+
         var todaysWord =
             await _db.DateWords.Include(f => f.Word).FirstOrDefaultAsync(f => f.Date == date);
-    
+
         if (todaysWord != null)
         {
             return todaysWord;
@@ -43,13 +43,13 @@ public class WordService
             {
                 var todaysLatestWord =
                     _db.DateWords.Include(f => f.Word).FirstOrDefault(f => f.Date == date.Value);
-    
+
                 if (todaysLatestWord != null)
                 {
                     return todaysLatestWord;
                 }
                 var word = GetRandomWordAsync().Result;
-    
+
                 var dateWord = new DateWord { Date = date.Value, Word = word };
                 _db.DateWords.Add(dateWord);
                 try
@@ -77,7 +77,7 @@ public class WordService
         // Make sure we get the most recent day in the farthest timezone
         var startDate = date.HasValue ? date.Value : DateTime.UtcNow.AddHours(-12).Date;
         var endDate = startDate + TimeSpan.FromDays(daysBack * -1);
-    
+
         // Get the data using the child collection of PlayerGames
         var result =
             await _db.DateWords.Include(f => f.PlayerGames)
@@ -95,7 +95,7 @@ public class WordService
                                         : false
                 })
                 .ToListAsync();
-    
+
         // Another way to do this using GroupBy
         // This algorithm doesn't handle days without PlayerGames.
         // This would need to have the stats inserted into the collection after the fact.
@@ -114,10 +114,10 @@ public class WordService
         //        NumberOfPlays = g.Sum(f => f.PlayerGameId),
         //        HasUserPlayed = playerId.HasValue ? g.Any(f => f.PlayerId == playerId.Value) :
         //        false
-    
+
         //    })
         //    .ToListAsync();
-    
+
         // If we don't have enough entries, then we need to add the days.
         if (result.Count != daysBack)
         {

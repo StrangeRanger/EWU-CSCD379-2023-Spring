@@ -28,17 +28,17 @@ public static class Seeder
         if (!db.Players.Any())
         {
             db.Players.Add(new Player { PlayerName = "John", AverageAttempts = 3.2,
-                AverageSecondsPerGame = 120, GameCount = 12,
-                PlayerId = Guid.NewGuid() });
+                                        AverageSecondsPerGame = 120, GameCount = 12,
+                                        PlayerId = Guid.NewGuid() });
             db.Players.Add(new Player { PlayerName = "Mary", AverageAttempts = 2.5,
-                AverageSecondsPerGame = 90, GameCount = 34,
-                PlayerId = Guid.NewGuid()});
+                                        AverageSecondsPerGame = 90, GameCount = 34,
+                                        PlayerId = Guid.NewGuid() });
             db.Players.Add(new Player { PlayerName = "Bob", AverageAttempts = 2.8,
-                AverageSecondsPerGame = 80, GameCount = 45,
-                PlayerId = Guid.NewGuid()});
+                                        AverageSecondsPerGame = 80, GameCount = 45,
+                                        PlayerId = Guid.NewGuid() });
             db.Players.Add(new Player { PlayerName = "Susan", AverageAttempts = 2.7,
-                AverageSecondsPerGame = 70, GameCount = 23,
-                PlayerId = Guid.NewGuid() });
+                                        AverageSecondsPerGame = 70, GameCount = 23,
+                                        PlayerId = Guid.NewGuid() });
             db.SaveChanges();
         }
     }
