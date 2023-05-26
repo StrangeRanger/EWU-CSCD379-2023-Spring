@@ -1,18 +1,18 @@
 <template>
   <h1>LeaderBoard</h1>
+
   <div>
-    <v-carousel class="h-auto w-auto pb-13">
-      <v-carousel-item>
-        <v-card class="px-16 text-center">
+    <v-card>
+      <v-carousel class="h-auto w-auto pb-13" show-arrows="hover">
+        <v-carousel-item>
           <Leaderboard />
-        </v-card>
-      </v-carousel-item>
-      <v-carousel-item>
-        <v-card class="px-16 text-center">
+        </v-carousel-item>
+
+        <v-carousel-item>
           <PersonalStats />
-        </v-card>
-      </v-carousel-item>
-    </v-carousel>
+        </v-carousel-item>
+      </v-carousel>
+    </v-card>
   </div>
 </template>
 
