@@ -162,13 +162,35 @@
 ### Lecture 15. 5/23: 
 - EF multiple table queries (Getting Word of the Day stats)
 - Using GroupBy, Sort
+- Questions from the homework
+- Lots of other stuff pertaining to homework
+
+### Lecture 16, 5/25
+- Database rollback and Migration consolidate
+- Full page images with themes
+- CSS deep dive
+- Navigation when query changes
+- v-model
 - CSS animations using transition
 - Creating revealing letters
-- API testing with service mocks and interfaces
-- Graceful error handling when API is missing
+- The problem of security and how to handle it
+- ASP.NET Identity Intro
+
+## Week 9
+### Lecture 17. 5/30: 
+- ASP.NET Identity
+- Setup up EF Identity in an existing project
+- JWT creation and verification
+- Authorization attributes for roles and policies
+- Setup of Swaqgger to take a bearer token
+
+### Lecture 18. 6/1: 
+- Front end bearer tokens
+- Auth Service
+- Route Guarding
+
 
 ### Next Topics
-- The problem of security and how to handle it
 - Identity in a web project (not just API)
 - Scaffolding EF
 - Adding Identity to the API
@@ -181,12 +203,8 @@
 - Remembering login
 - Refreshing the token
 - Authorizing specific API calls
-
-## Week 9
-### Lecture 17. 5/30: 
-
-
-### Lecture 18. 6/1: 
+- API testing with service mocks and interfaces
+- Graceful error handling when API is missing
 
 
 ## Week 10 
@@ -194,6 +212,8 @@
 
 
 ### Lecture 20. 6/8: 
+- Work on Final project
+- Work on Assignment 4
 
 Other Topics
   - Vuetify
