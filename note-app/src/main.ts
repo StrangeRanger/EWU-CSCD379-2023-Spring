@@ -5,6 +5,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { mdi } from 'vuetify/iconsets/mdi'
+import CKEditor from '@ckeditor/ckeditor5-vue'
 
 // Vuetify.
 import 'vuetify/styles'
@@ -37,5 +38,6 @@ const vuetify = createVuetify({
 
 const app = createApp(App)
 app.use(vuetify)
+app.use(CKEditor)
 app.use(router)
 app.mount('#app')
