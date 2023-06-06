@@ -12,8 +12,8 @@ using Wordle.Api.Data;
 namespace Wordle.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230524193450_PlayerNoTotals")]
-    partial class PlayerNoTotals
+    [Migration("20230602010426_ContextUpdate")]
+    partial class ContextUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,7 +119,7 @@ namespace Wordle.Api.Migrations
                                     b.HasOne("Wordle.Api.Data.Word", "Word")
                                         .WithMany("DateWords")
                                         .HasForeignKey("WordId")
-                                        .OnDelete(DeleteBehavior.ClientCascade)
+                                        .OnDelete(DeleteBehavior.Cascade)
                                         .IsRequired();
 
                                     b.Navigation("Word");
