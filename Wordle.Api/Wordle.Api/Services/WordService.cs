@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Wordle.Api.Data;
 using Wordle.Api.Dtos;
@@ -23,6 +23,26 @@ public class WordService
         return word;
     }
 
+    public async Task<Word> AddWordAsync(string? newWord, bool isCommon)
+    {
+        if (newWord is null || newWord.Length != 5)
+        {
+            throw new ArgumentException("Word must be 5 characters long");
+        }
+        var word = await _db.Words.FirstOrDefaultAsync(w => w.Text == newWord);
+        if (word != null)
+        {
+            word.IsCommon = isCommon;
+        }
+        else
+        {
+            word = new() { Text = newWord, IsCommon = isCommon };
+            _db.Words.Add(word);
+        }
+        await _db.SaveChangesAsync();
+        return word;
+    }
+
     public async Task<DateWord> GetWordOfTheDayAsync(TimeSpan offset, DateTime? date = null)
     {
         if (date is null)
@@ -30,8 +50,7 @@ public class WordService
             date = DateTime.UtcNow.AddHours(offset.TotalHours).Date;
         }
 
-        var todaysWord =
-            await _db.DateWords.Include(f => f.Word).FirstOrDefaultAsync(f => f.Date == date);
+        var todaysWord = await _db.DateWords.Include(f => f.Word).FirstOrDefaultAsync(f => f.Date == date);
 
         if (todaysWord != null)
         {
@@ -41,8 +60,7 @@ public class WordService
         {
             lock (s_wordOfTheDayLock)
             {
-                var todaysLatestWord =
-                    _db.DateWords.Include(f => f.Word).FirstOrDefault(f => f.Date == date.Value);
+                var todaysLatestWord = _db.DateWords.Include(f => f.Word).FirstOrDefault(f => f.Date == date.Value);
 
                 if (todaysLatestWord != null)
                 {
@@ -56,7 +74,7 @@ public class WordService
                 {
                     _db.SaveChanges();
                 }
-                catch (SqlException e)  // this is probably not the right error to catch
+                catch (SqlException e) // this is probably not the right error to catch
                 {
                     if (e.Message.Contains("duplicate"))
                     {
@@ -87,36 +105,28 @@ public class WordService
                     Date = f.Date,
                     AverageDurationInSeconds =
                         f.PlayerGames.Any() ? f.PlayerGames.Average(a => a.DurationInSeconds) : -1,
-                    AverageAttempts =
-                        f.PlayerGames.Any() ? f.PlayerGames.Average(a => a.Attempts) : -1,
+                    AverageAttempts = f.PlayerGames.Any() ? f.PlayerGames.Average(a => a.Attempts) : -1,
                     NumberOfPlays = f.PlayerGames.Count(),
-                    HasUserPlayed = playerId.HasValue
-                                        ? f.PlayerGames.Any(f => f.PlayerId == playerId.Value)
-                                        : false
+                    HasUserPlayed = playerId.HasValue ? f.PlayerGames.Any(f => f.PlayerId == playerId.Value) : false
                 })
                 .ToListAsync();
 
         // Another way to do this using GroupBy
         // This algorithm doesn't handle days without PlayerGames.
         // This would need to have the stats inserted into the collection after the fact.
-        // var result = await _db.PlayerGames
-        //    .Include(f => f.DateWord!.Word)
-        //    .Where(f => f.DateWord != null &&
-        //        f.DateWord.Date <= startDate &&
-        //        f.DateWord.Date >= endDate)
-        //    .GroupBy(f => f.DateWord)
-        //    .Where(f => f.Key != null)
-        //    .Select(g => new WordOfTheDayStatsDto
-        //    {
-        //        Date = g.Key!.Date,
-        //        AverageDurationInSeconds = g.Average(f => f.DurationInSeconds),
-        //        AverageAttempts = g.Average(f => f.Attempts),
-        //        NumberOfPlays = g.Sum(f => f.PlayerGameId),
-        //        HasUserPlayed = playerId.HasValue ? g.Any(f => f.PlayerId == playerId.Value) :
-        //        false
+        var result2 = await _db.PlayerGames.Include(f => f.DateWord)
+                          .Where(f => f.DateWord != null && f.DateWord.Date <= startDate && f.DateWord.Date >= endDate)
+                          .GroupBy(f => f.DateWord)
+                          .Where(f => f.Key != null)
+                          .Select(g => new WordOfTheDayStatsDto {
+                              Date = g.Key!.Date,
+                              AverageDurationInSeconds = g.Average(f => f.DurationInSeconds),
+                              AverageAttempts = g.Average(f => f.Attempts),
+                              NumberOfPlays = g.Count(),
+                              HasUserPlayed = playerId.HasValue ? g.Any(f => f.PlayerId == playerId.Value) : false
 
-        //    })
-        //    .ToListAsync();
+                          })
+                          .ToListAsync();
 
         // If we don't have enough entries, then we need to add the days.
         if (result.Count != daysBack)
@@ -127,14 +137,36 @@ public class WordService
                 // Use the timezone that is the worst possible one
                 await this.GetWordOfTheDayAsync(TimeSpan.FromHours(12), startDate.AddDays(i));
             }
+
             // Go get the data again, hopefully this all works and we don't end up in a loop
             result = await GetWordOfTheDayStatsAsync(date, daysBack);
         }
+
         return result;
     }
 
-    public async Task<List<string>> GetWordList()
+    public async Task<List<string>> GetValidWordList()
     {
         return await _db.Words.Select(word => word.Text).ToListAsync();
+    }
+
+    public async Task<List<Word>> GetWordList(int pageNumber, string? searchWord)
+    {
+        if (string.IsNullOrEmpty(searchWord))
+        {
+            return await _db.Words.Select(word => word).Skip(10 * pageNumber).Take(10).ToListAsync();
+        }
+
+        return await _db.Words.Select(word => word)
+            .Where(word => word.Text.Contains(searchWord))
+            .Skip(10 * pageNumber)
+            .Take(10)
+            .OrderBy(word => word.Text)
+            .ToListAsync();
+    }
+
+    public async Task<int> RemoveWordFromListAsync(WordDto word) 
+    {
+        return await _db.Words.Select(w => w).Where(w => w.Text == word.Text).ExecuteDeleteAsync();
     }
 }
