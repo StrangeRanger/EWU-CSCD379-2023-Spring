@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTheme } from 'vuetify/lib/framework.mjs'
+import {useTheme} from 'vuetify'
 
 const theme = useTheme()
 
