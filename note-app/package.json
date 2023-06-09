@@ -13,9 +13,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^38.0.1",
-    "@ckeditor/ckeditor5-vue": "^5.1.0",
-    "@tinymce/tinymce-vue": "^5.1.0",
     "@vueup/vue-quill": "^1.2.0",
     "axios": "^1.4.0",
     "vue": "^3.3.2",

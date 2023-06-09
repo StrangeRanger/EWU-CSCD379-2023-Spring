@@ -7,19 +7,13 @@
           Note App
         </RouterLink>
       </v-toolbar-title>
-
       <v-spacer />
-
       <ToggleTheme />
     </v-app-bar>
-
-    <v-spacer />
 
     <v-main>
       <RouterView />
     </v-main>
-
-    <v-spacer />
   </v-app>
 </template>
 
@@ -33,5 +27,9 @@ import ToggleTheme from '@/components/Header/ToggleTheme.vue'
   font-weight: bold;
   border-bottom: 1px solid #656464;
   min-height: 65px;
+}
+
+.v-main {
+  padding-top: 94px;
 }
 </style>
