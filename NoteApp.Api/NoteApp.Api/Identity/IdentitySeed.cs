@@ -34,7 +34,6 @@ public static class IdentitySeed
         if (await userManager.FindByEmailAsync("Admin@example.com") == null)
         {
             var user = new AppUser {
-                
                 UserName = "Admin",
                 Email = "Admin@example.com",
             };
