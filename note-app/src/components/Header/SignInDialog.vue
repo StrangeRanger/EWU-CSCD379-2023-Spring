@@ -4,6 +4,8 @@
     <span v-else>{{ signInService.token.userName }}</span>
   </v-btn>
 
+  <v-btn v-if="signInService.isSignedIn" @click="signInService.signOut()">Sign Out</v-btn>
+
   <v-dialog
     :model-value="toggleDialog"
     @update:model-value="close"
