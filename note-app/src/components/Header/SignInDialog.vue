@@ -4,17 +4,14 @@
     <span v-else>{{ signInService.token.userName }}</span>
   </v-btn>
 
-  <v-btn v-if="signInService.isSignedIn" @click="signInService.signOut()">Sign Out</v-btn>
-
   <v-dialog
     :model-value="toggleDialog"
     @update:model-value="close"
     max-width="600px"
     title="Sign In"
-    persistent
   >
-    <v-card>
-      <div class="d-flex justify-center pa-2 text-h6">Sign In</div>
+    <v-card v-if="!signInService.isSignedIn">
+      <v-card-title class="d-flex justify-center pa-2 text-h6">Sign In</v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12">
@@ -27,6 +24,14 @@
       </v-card-text>
       <v-card-actions class="justify-center">
         <v-btn @click="signInAsync" variant="elevated" color="success"> Sign In </v-btn>
+        <v-btn @click="close" variant="elevated" color="error"> Cancel </v-btn>
+      </v-card-actions>
+    </v-card>
+
+    <v-card v-else>
+      <v-card-title class="d-flex justify-center pa-2">Signed In</v-card-title>
+      <v-card-actions class="justify-center">
+        <v-btn @click="signOutAsync" variant="elevated" color="success"> Sign Out </v-btn>
         <v-btn @click="close" variant="elevated" color="error"> Cancel </v-btn>
       </v-card-actions>
     </v-card>
@@ -49,6 +54,11 @@ async function signInAsync() {
   } else {
     alert('Invalid user name or password')
   }
+}
+
+async function signOutAsync() {
+  await signInService.signOut()
+  close()
 }
 
 function close() {
