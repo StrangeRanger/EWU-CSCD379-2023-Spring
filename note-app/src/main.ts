@@ -5,7 +5,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { mdi } from 'vuetify/iconsets/mdi'
-import CKEditor from '@ckeditor/ckeditor5-vue'
 
 // Vuetify.
 import 'vuetify/styles'
