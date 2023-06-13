@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -54,9 +55,10 @@ public class TokenController : Controller
             var claims = new List<Claim> {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName!),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(Claims.UserId, user.Id.ToString()),
+                new Claim(Claims.UserId, user.Id),
+                new Claim(Claims.Random, (new Random()).NextDouble().ToString(CultureInfo.CurrentCulture)),
                 new Claim(Claims.UserName,
-                          user.UserName!.ToString().Substring(0, user.UserName.ToString().IndexOf("@")))
+                          user.UserName!.Substring(0, user.UserName.IndexOf("@", StringComparison.Ordinal)))
             };
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
@@ -86,7 +88,11 @@ public class TokenController : Controller
         {
             return BadRequest("Password is required");
         }
-        var user = new AppUser { UserName = createUser.UserName, Email = createUser.UserName};
+        if (string.IsNullOrEmpty(createUser.Name))
+        {
+            return BadRequest("Name is required");
+        }
+        var user = new AppUser { UserName = createUser.UserName, Email = createUser.UserName, Name = createUser.Name };
         var result = await _userManager.CreateAsync(user, createUser.Password);
         if (result.Succeeded)
         {
@@ -99,7 +105,7 @@ public class TokenController : Controller
     [Authorize]
     public string Test()
     {
-        return "something";
+        return "General Test";
     }
 
     [HttpGet("TestAdmin")]

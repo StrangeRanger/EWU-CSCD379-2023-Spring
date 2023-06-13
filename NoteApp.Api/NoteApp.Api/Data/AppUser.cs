@@ -4,5 +4,6 @@ namespace NoteApp.Api.Data;
 
 public class AppUser : IdentityUser
 {
-    public ICollection<Notes> Notes { get; set; } = null!;
+    public required string Name { get; set; }
+    public ICollection<Notes>? Notes { get; set; }
 }

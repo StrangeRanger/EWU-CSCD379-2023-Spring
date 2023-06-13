@@ -8,5 +8,5 @@ public class Notes
     public DateTime Created { get; set; }
     public DateTime LastModified { get; set; }
     public string AppUserId { get; set; } = null!;
-    public AppUser AppUser { get; set; } = null!;
+    // public AppUser AppUser { get; set; } = null!;
 }
