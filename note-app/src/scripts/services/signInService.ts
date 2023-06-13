@@ -1,23 +1,12 @@
 import Axios from 'axios'
 
-class WordleToken {
-  random: string = ''
-  userId: string = ''
+class NoteAppToken {
   userName: string = ''
-  aud: string = ''
-  exp: number = 0
-  'http://schemas.microsoft.com/ws/2008/06/identity/claims/role': string[] = []
-  iss: string = ''
-  jti: string = ''
-  sub: string = ''
-  get roles(): string[] {
-    return this['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
-  }
 }
 
 export class SignInService {
   private _rawToken: string | null = null
-  private _token: WordleToken = new WordleToken()
+  private _token: NoteAppToken = new NoteAppToken()
   private _isSignedIn: boolean = false
   private static _instance = new SignInService()
   private _tokenLocalStorageKey = 'token'
@@ -33,9 +22,6 @@ export class SignInService {
         password: password
       })
       this.setToken(result.data.token)
-      // Axios.get('Token/TestAdmin').then((result) => {
-      //   console.log(result)
-      // })
       this._isSignedIn = true
       return true
     } catch (err) {
@@ -56,7 +42,7 @@ export class SignInService {
   private setToken(token: string | null) {
     if (!token) {
       // Clear the token
-      this._token = new WordleToken()
+      this._token = new NoteAppToken()
       this._isSignedIn = false
       this._rawToken = ''
       localStorage.setItem(this._tokenLocalStorageKey, '')
@@ -68,15 +54,11 @@ export class SignInService {
       Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       const parts = token.split('.')
       const payload = JSON.parse(window.atob(parts[1]))
-      this._token = Object.assign(new WordleToken(), payload)
+      this._token = Object.assign(new NoteAppToken(), payload)
     }
   }
 
-  public get rawToken(): string | null {
-    return this._rawToken
-  }
-
-  public get token(): WordleToken {
+  public get token(): NoteAppToken {
     return this._token
   }
 
