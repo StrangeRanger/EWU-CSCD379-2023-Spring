@@ -1,7 +1,7 @@
 import './assets/main.css'
 import '@mdi/font/css/materialdesignicons.css'
 
-import { createApp } from 'vue'
+import { createApp, reactive } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { mdi } from 'vuetify/iconsets/mdi'
@@ -11,6 +11,8 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { Services } from './scripts/services'
+import { SignInService } from './scripts/signInService'
 
 const themeInUse = localStorage.getItem('theme') || 'dark'
 const vuetify = createVuetify({
@@ -36,6 +38,10 @@ const vuetify = createVuetify({
 })
 
 const app = createApp(App)
+
+const signInService = reactive(SignInService.instance)
+app.provide(Services.SignInService, signInService)
+
 app.use(vuetify)
 app.use(router)
 app.mount('#app')
