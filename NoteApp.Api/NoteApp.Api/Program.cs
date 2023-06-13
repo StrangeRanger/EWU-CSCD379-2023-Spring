@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using NoteApp.Api.Data;
 using NoteApp.Api.Identity;
+using NoteApp.Api.Services;
 // using NoteApp.Api.Services;
 
 const string myAllowAllOrigins = "_myAllowAllOrigins";
@@ -52,8 +53,7 @@ builder.Services.AddSwaggerGen(
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
                                             { options.UseSqlServer(connectionString); });
-// builder.Services.AddScoped<WordService>();
-// builder.Services.AddScoped<PlayerService>();
+builder.Services.AddScoped<NoteService>();
 
 // Identity Services
 builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)

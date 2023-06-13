@@ -17,7 +17,7 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet("GetNote")]
-    public async Task<Notes> GetNote(NoteDto note)
+    public async Task<Notes> GetNote([FromQuery]NoteDto note)
     {
         return await _noteService.GetNoteAsync(note.Title, note.AppUserId);
     }
