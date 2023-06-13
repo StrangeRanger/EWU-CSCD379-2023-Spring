@@ -13,6 +13,12 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { Services } from './scripts/services/services'
 import { SignInService } from './scripts/services/signInService'
+import axios from "axios";
+
+// Check if the app is running on localhost.
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  axios.defaults.baseURL = 'http://localhost:5225/'
+}
 
 const themeInUse = localStorage.getItem('theme') || 'dark'
 const vuetify = createVuetify({
