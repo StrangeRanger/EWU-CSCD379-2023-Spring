@@ -27,4 +27,16 @@ public class NoteController : ControllerBase
     {
         return await _noteService.CreateOrEditNoteAsync(note);
     }
+
+    [HttpGet("GetUsersNotes")]
+    public async Task<List<Notes>> GetUsersNotes(string appUserId, int page)
+    {
+        return await _noteService.GetUsersNotesAsync(appUserId, page);
+    }
+
+    [HttpPost("DeleteNote")]
+    public async Task<int> RemoveNote(int noteId)
+    {
+        return await _noteService.RemoveNoteAsync(noteId);
+    }
 }

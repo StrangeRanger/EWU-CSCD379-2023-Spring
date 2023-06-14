@@ -26,7 +26,7 @@ public class NoteService
         }
     
         var savedNote =
-            await _db.Notes.FirstOrDefaultAsync(w => w.Title == note.Title && w.AppUserId == note.AppUserId);
+            await _db.Notes.FirstOrDefaultAsync(w => w.NoteId == note.NoteId && w.AppUserId == note.AppUserId);
         var urlService = new UrlService(_db);
     
         if (savedNote != null)
@@ -47,5 +47,19 @@ public class NoteService
     
         await _db.SaveChangesAsync();
         return savedNote;
+    }
+
+    public async Task<List<Notes>> GetUsersNotesAsync(string appUserId, int page)
+    {
+        return await _db.Notes.Select(n => n)
+            .Where(n => n.AppUserId == appUserId)
+            .Skip(10 * page)
+            .Take(10)
+            .ToListAsync();
+    }
+
+    public async Task<int> RemoveNoteAsync(int noteId)
+    {
+        return await _db.Notes.Select(n => n).Where(n => n.NoteId == noteId).ExecuteDeleteAsync();
     }
 }

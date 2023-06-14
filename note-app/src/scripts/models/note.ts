@@ -1,4 +1,5 @@
 export class Note {
+  noteId: number = 0
   title: string = ''
   content: string = ''
   // TODO: Modify so the date is set when pushed to the database and not at instantiation time

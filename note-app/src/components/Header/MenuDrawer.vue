@@ -21,6 +21,10 @@
         <v-list-item>
           <v-btn to="/quill" variant="outlined" elevation="24">New note</v-btn>
         </v-list-item>
+
+        <v-list-item>
+          <v-btn to="/mynotes" variant="outlined" elevation="24">My Notes</v-btn>
+        </v-list-item>
       </v-list>
     </v-card>
   </v-navigation-drawer>
