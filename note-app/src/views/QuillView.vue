@@ -21,6 +21,7 @@ import { SignInService } from '@/scripts/services/signInService'
 import { Services } from '@/scripts/services/services'
 import Axios from 'axios'
 import router from "@/router";
+import QuillView from '@/views/QuillView.vue'
 
 const signInService = inject(Services.SignInService) as SignInService
 
@@ -53,6 +54,8 @@ function saveNote() {
   // TODO: Modify console log of response...
   Axios.post('/Note/CreateOrEditNote', note.value).then((response) => {
     console.log(response)
+    const returnedNote = response.data as Note
+    router.addRoute({path: '/quill/' + returnedNote.urlSuffix, name: returnedNote.urlSuffix, component: QuillView})
   })
 }
 </script>

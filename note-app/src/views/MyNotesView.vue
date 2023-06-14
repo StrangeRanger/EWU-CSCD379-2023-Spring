@@ -15,7 +15,7 @@
                 <td class="text-center">{{ note.created }}</td>
                 <td class="text-center">{{ note.modified }}</td>
                 <td class="text-center">
-                    <v-btn  color="success">Edit</v-btn>
+                    <v-btn :to="'/quill/' + note.urlSuffix" color="success">Edit</v-btn>
                 </td>
                 <td class="text-center">
                     <v-btn @click="deleteNoteDialog(note)" color="red">Delete</v-btn>
@@ -103,7 +103,7 @@ function deleteNoteDialog(note: Note){
 
 function submitDeleteNote(){
     console.log(noteToRemove.value.noteId)
-    Axios.post('Note/DeleteNote', noteToRemove.value.noteId).then( (response) => {
+    Axios.post('Note/DeleteNote?noteId='+ noteToRemove.value.noteId).then( (response) => {
         console.log(response)
         removeNoteDialog.value = !removeNoteDialog.value
         Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
