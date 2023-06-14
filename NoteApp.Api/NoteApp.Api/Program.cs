@@ -50,10 +50,11 @@ builder.Services.AddSwaggerGen(
         });
     });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("NolansConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
                                             { options.UseSqlServer(connectionString); });
 builder.Services.AddScoped<NoteService>();
+builder.Services.AddScoped<UserService>();
 
 // Identity Services
 builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
