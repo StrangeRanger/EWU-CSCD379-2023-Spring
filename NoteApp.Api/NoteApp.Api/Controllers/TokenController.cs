@@ -39,7 +39,7 @@ public class TokenController : Controller
             return BadRequest("Password is required");
         }
 
-        var user = _context.Users.FirstOrDefault(u => u.UserName == userCredentials.UserName);
+        var user = _context.AppUsers.FirstOrDefault(u => u.UserName == userCredentials.UserName);
 
         if (user is null)
         {

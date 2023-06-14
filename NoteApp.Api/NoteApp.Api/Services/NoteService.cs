@@ -1,6 +1,4 @@
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using NoteApp.Api.Data;
 using NoteApp.Api.Dtos;
 
@@ -15,14 +13,14 @@ public class NoteService
         _db = db;
     }
 
-    public async Task<Notes> GetNoteAsync(string title, string userID)
+    public async Task<Notes?> GetNoteAsync(string title, string userId)
     {
-        if (string.IsNullOrEmpty(userID) || string.IsNullOrEmpty(title))
+        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(title))
         {
             throw new ArgumentException("User ID or Title cannot be null or empty");
         }
 
-        var note = await _db.Notes.FirstOrDefaultAsync(w => w.Title == title && w.AppUserId == userID);
+        var note = await _db.Notes.FirstOrDefaultAsync(w => w.Title == title && w.AppUserId == userId);
         return note;
     }
 

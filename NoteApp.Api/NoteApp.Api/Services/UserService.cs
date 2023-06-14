@@ -1,8 +1,5 @@
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using NoteApp.Api.Data;
-using NoteApp.Api.Dtos;
 
 namespace NoteApp.Api.Services;
 
@@ -17,8 +14,9 @@ public class UserService
 
     public async Task<string> GetUserIdAsync(string username)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(w => w.UserName == username);
+        var user = await _db.AppUsers.FirstOrDefaultAsync(w => w.UserName == username);
 
+        // TODO: Add a check for null user (Warns of 'Dereference of a possibly null reference')
         return user.Id;
     }
 }
