@@ -17,7 +17,7 @@ export class SignInService {
 
   public async signInAsync(username: string, password: string): Promise<boolean> {
     try {
-      const result = await Axios.post('Token/GetToken', {
+      const result = await Axios.post('Token', {
         username: username,
         password: password
       })

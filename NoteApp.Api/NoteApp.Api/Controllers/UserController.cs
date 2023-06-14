@@ -3,8 +3,8 @@ using NoteApp.Api.Services;
 
 namespace NoteApp.Api.Controllers;
 
-[Route("[controller]")]
 [ApiController]
+[Route("User")]
 public class UserController : ControllerBase
 {
     private readonly UserService _userService;
@@ -14,7 +14,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet("GetUser")]
+    [HttpGet]
     public async Task<string> GetUser(string username)
     {
         return await _userService.GetUserIdAsync(username);

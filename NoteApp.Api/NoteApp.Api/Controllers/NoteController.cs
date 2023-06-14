@@ -5,8 +5,8 @@ using NoteApp.Api.Services;
 
 namespace NoteApp.Api.Controllers;
 
-[Route("[controller]")]
 [ApiController]
+[Route("Note")]
 public class NoteController : ControllerBase
 {
     private readonly NoteService _noteService;
@@ -16,7 +16,7 @@ public class NoteController : ControllerBase
         _noteService = noteService;
     }
 
-    [HttpGet("GetNote")]
+    [HttpGet]
     public async Task<Notes?> GetNote(int noteId)
     {
         return await _noteService.GetNoteAsync(noteId);

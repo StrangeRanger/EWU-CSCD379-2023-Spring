@@ -12,8 +12,8 @@ using NoteApp.Api.Models;
 
 namespace NoteApp.Api.Controllers;
 
-[Route("Token")]
 [ApiController]
+[Route("Token")]
 public class TokenController : Controller
 {
     private readonly AppDbContext _context;
@@ -27,7 +27,7 @@ public class TokenController : Controller
         _jwtConfiguration = jwtConfiguration;
     }
 
-    [HttpPost("GetToken")]
+    [HttpPost]
     public async Task<IActionResult> GetToken([FromBody] UserCredentials userCredentials)
     {
         if (string.IsNullOrEmpty(userCredentials.UserName))

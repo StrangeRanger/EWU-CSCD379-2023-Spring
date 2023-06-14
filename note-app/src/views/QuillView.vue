@@ -16,38 +16,43 @@
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import { inject, ref } from 'vue'
-import { NoteHelper } from '@/scripts/helpers/noteHelper';
-import { SignInService } from '@/scripts/services/signInService';
-import { Services } from '@/scripts/services/services';
+import { Note } from '@/scripts/models/note'
+import { SignInService } from '@/scripts/services/signInService'
+import { Services } from '@/scripts/services/services'
 import Axios from 'axios'
+import router from "@/router";
 
-const text = ref<string>('')
-const title = ref<string>('')
-const note = ref<NoteHelper>(new NoteHelper())
 const signInService = inject(Services.SignInService) as SignInService
 
 let id = ''
-Axios.get('/User/GetUser?username=' + signInService.token.userName + '@noteapp.com').then(response => id = response.data)
+let text = ref<string>('')
+let title = ref<string>('')
+let note = ref<Note>(new Note())
+
+// TODO: Modify so we don't hardcode the email address...
+Axios.get('User?username=' + signInService.token.userName + '@noteapp.com').then(
+  (response) => (id = response.data)
+)
 
 const options = {
   toolbar: 'full',
   theme: 'snow'
 }
 
+console.log(router.currentRoute.value.params.text)
+
+
 function saveNote() {
-  console.log(id)
-  console.log(title.value)
-  console.log(text.value)
-    note.value.title = title.value
-    note.value.content = text.value
-    note.value.appUserID = id
-    Axios.post('/Note/CreateOrEditNote', note.value)
-    //.then( () => {
-      //Make dialog that says the note was successfully saved.
-    //})
-  
-    //Make Dialog pop up saying the title cant be empty
-  
-  
+  if (title.value == null || title.value == '') {
+    title.value = 'Untitled'
+  }
+
+  note.value.title = title.value
+  note.value.content = JSON.stringify(text.value)
+  note.value.appUserID = id
+  // TODO: Modify console log of response...
+  Axios.post('/Note/CreateOrEditNote', note.value).then((response) => {
+    console.log(response)
+  })
 }
 </script>

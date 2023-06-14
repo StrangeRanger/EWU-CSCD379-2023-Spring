@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using NoteApp.Api.Controllers;
 using NoteApp.Api.Services;
 
@@ -16,25 +17,26 @@ public class Seeder
         {
             return;
         }
-        
+
         var adminUserId = "";
         var hunterUserId = "";
         var nolanUserId = "";
-        
+        var urlService = new UrlService(db);
+
         // Admin User Id
         var adminUser = db.AppUsers.FirstOrDefault(u => u.UserName == "admin@noteapp.com");
         if (adminUser != null)
         {
-             adminUserId = adminUser.Id;
+            adminUserId = adminUser.Id;
         }
-        
+
         // Hunter User Id
         var hunterUser = db.AppUsers.FirstOrDefault(u => u.UserName == "hunter.t@noteapp.com");
         if (hunterUser != null)
         {
             hunterUserId = hunterUser.Id;
         }
-        
+
         // Nolan User Id
         var nolanUser = db.AppUsers.FirstOrDefault(u => u.UserName == "nposey@noteapp.com");
         if (nolanUser != null)
@@ -42,53 +44,32 @@ public class Seeder
             nolanUserId = nolanUser.Id;
         }
 
-        var notes = new List<Notes> { new() { Title = "Note 1",
-                                              Content = "Content 1",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = adminUserId },
-                                      new() { Title = "Note 2",
-                                              Content = "Content 2",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = adminUserId },
-                                      new() { Title = "Note 2",
-                                              Content = "Content 3",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = adminUserId },
-                                      new() { Title = "Note 1",
-                                              Content = "Content 4",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = hunterUserId },
-                                      new() { Title = "Note 2",
-                                              Content = "Content 5",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = hunterUserId },
-                                      new() { Title = "Note 2",
-                                              Content = "Content 6",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = hunterUserId },
-                                      new() { Title = "Note 1",
-                                              Content = "Content 7",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = nolanUserId },
-                                      new() { Title = "Note 2",
-                                              Content = "Content 8",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = nolanUserId },
-                                      new() { Title = "Note 2",
-                                              Content = "Content 9",
-                                              Created = DateTime.Now,
-                                              LastModified = DateTime.Now,
-                                              AppUserId = nolanUserId } };
+        // IMPORTANT: Each note must be added individually to the database, so that the urlService can generate a unique
+        // url suffix for each note.
+        for (var i = 0; i < 8; i++)
+        {
+            var chosenUser = i switch {
+                0 => adminUserId,
+                1 => hunterUserId,
+                2 => nolanUserId,
+                3 => adminUserId,
+                4 => hunterUserId,
+                5 => nolanUserId,
+                6 => adminUserId,
+                7 => hunterUserId,
+                _ => nolanUserId
+            };
 
-        db.Notes.AddRange(notes);
-        db.SaveChanges();
+            var note = new Notes { Title = $"Note {i + 1}",
+                                   Content = $"Content {i + 1}",
+                                   Created = DateTime.Now,
+                                   LastModified = DateTime.Now,
+                                   UrlSuffix = urlService.GenerateUniqueUrlSuffixAsync().Result,
+                                   AppUserId = chosenUser };
+
+            db.Notes.Add(note);
+        }
+
+        db.SaveChangesAsync();
     }
 }

@@ -27,6 +27,7 @@ public class NoteService
     
         var savedNote =
             await _db.Notes.FirstOrDefaultAsync(w => w.Title == note.Title && w.AppUserId == note.AppUserId);
+        var urlService = new UrlService(_db);
     
         if (savedNote != null)
         {
@@ -39,6 +40,7 @@ public class NoteService
                                 Title = note.Title,
                                 Content = note.Content,
                                 LastModified = DateTime.Now,
+                                UrlSuffix =  urlService.GenerateUniqueUrlSuffixAsync().Result,
                                 Created = DateTime.Now };
             _db.Notes.Add(savedNote);
         }

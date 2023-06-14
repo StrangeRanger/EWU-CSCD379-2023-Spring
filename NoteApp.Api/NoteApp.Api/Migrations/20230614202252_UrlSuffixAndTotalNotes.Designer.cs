@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NoteApp.Api.Data;
 
@@ -11,9 +12,11 @@ using NoteApp.Api.Data;
 namespace NoteApp.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230614202252_UrlSuffixAndTotalNotes")]
+    partial class UrlSuffixAndTotalNotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,14 +261,11 @@ namespace NoteApp.Api.Migrations
 
                     b.Property<string>("UrlSuffix")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("NoteId");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("UrlSuffix")
-                        .IsUnique();
 
                     b.ToTable("Notes");
                 });
