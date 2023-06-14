@@ -6,9 +6,9 @@ public class Notes
 {
     [Key]
     public int NoteId { get; set; }
-    public required string Title { get; set; } = null!;
-    public string Content { get; set; } = null!;
+    public required string Title { get; set; }
+    public string? Content { get; set; }
     public DateTime Created { get; set; }
     public DateTime LastModified { get; set; }
-    public string AppUserId { get; set; } = null!;
+    public required string AppUserId { get; set; }
 }
