@@ -88,9 +88,10 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
-    // Seeder.SeedNotes(db);
     await IdentitySeed.SeedAsync(scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>(),
                                  scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>());
+    // IMPORTANT: Must be left and run after IdentitySeed.SeedAsync
+    Seeder.SeedNotes(db);
 }
 
 // Configure the HTTP request pipeline.
