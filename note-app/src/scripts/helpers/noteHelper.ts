@@ -4,5 +4,5 @@ export class NoteHelper {
     content: string = 'content'
     created: string = ''
     lastModified: string = ''
-    userID: string = ''
+    appUserID: string = ''
 }
