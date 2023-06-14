@@ -13,15 +13,9 @@ public class NoteService
         _db = db;
     }
 
-    public async Task<Notes?> GetNoteAsync(string title, string userId)
+    public async Task<Notes?> GetNoteAsync(int noteId)
     {
-        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(title))
-        {
-            throw new ArgumentException("User ID or Title cannot be null or empty");
-        }
-
-        var note = await _db.Notes.FirstOrDefaultAsync(w => w.Title == title && w.AppUserId == userId);
-        return note;
+        return await _db.Notes.FirstOrDefaultAsync(w => w.NoteId == noteId);
     }
 
     public async Task<Notes> CreateOrEditNoteAsync(NoteDto note)
@@ -30,10 +24,10 @@ public class NoteService
         {
             throw new ArgumentNullException("The note is null");
         }
-
+    
         var savedNote =
             await _db.Notes.FirstOrDefaultAsync(w => w.Title == note.Title && w.AppUserId == note.AppUserId);
-
+    
         if (savedNote != null)
         {
             savedNote.Content = note.Content;
@@ -48,7 +42,7 @@ public class NoteService
                                 Created = DateTime.Now };
             _db.Notes.Add(savedNote);
         }
-
+    
         await _db.SaveChangesAsync();
         return savedNote;
     }

@@ -17,9 +17,9 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet("GetNote")]
-    public async Task<Notes?> GetNote([FromQuery] NoteDto note)
+    public async Task<Notes?> GetNote(int noteId)
     {
-        return await _noteService.GetNoteAsync(note.Title, note.AppUserId);
+        return await _noteService.GetNoteAsync(noteId);
     }
 
     [HttpPost("CreateOrEditNote")]
