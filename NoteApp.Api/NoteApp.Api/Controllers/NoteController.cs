@@ -16,10 +16,16 @@ public class NoteController : ControllerBase
         _noteService = noteService;
     }
 
-    [HttpGet]
+    [HttpGet("ByNoteId")]
     public async Task<Notes?> GetNote(int noteId)
     {
         return await _noteService.GetNoteAsync(noteId);
+    }
+    
+    [HttpGet("ByUrlSuffix")]
+    public async Task<Notes?> GetNote(string urlSuffix)
+    {
+        return await _noteService.GetNoteAsync(urlSuffix);
     }
 
     [HttpPost("CreateOrEditNote")]

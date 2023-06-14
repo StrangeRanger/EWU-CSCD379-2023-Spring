@@ -17,6 +17,11 @@ public class NoteService
     {
         return await _db.Notes.FirstOrDefaultAsync(w => w.NoteId == noteId);
     }
+    
+    public async Task<Notes?> GetNoteAsync(string urlSuffix)
+    {
+        return await _db.Notes.FirstOrDefaultAsync(w => w.UrlSuffix == urlSuffix);
+    }
 
     public async Task<Notes> CreateOrEditNoteAsync(NoteDto note)
     {
