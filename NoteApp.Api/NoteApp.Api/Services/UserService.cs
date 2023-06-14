@@ -17,11 +17,8 @@ public class UserService
 
     public async Task<string> GetUserIdAsync(string username)
     {
-
         var user = await _db.Users.FirstOrDefaultAsync(w => w.UserName == username);
 
         return user.Id;
-
     }
-
 }

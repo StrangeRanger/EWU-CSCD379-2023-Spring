@@ -33,7 +33,8 @@ public class NoteService
             throw new ArgumentNullException("The note is null");
         }
 
-        var savedNote = await _db.Notes.FirstOrDefaultAsync(w => w.Title == note.Title && w.AppUserId == note.AppUserId);
+        var savedNote =
+            await _db.Notes.FirstOrDefaultAsync(w => w.Title == note.Title && w.AppUserId == note.AppUserId);
 
         if (savedNote != null)
         {
@@ -42,21 +43,15 @@ public class NoteService
         }
         else
         {
-            savedNote = new()
-            {
-                AppUserId = note.AppUserId,
-                Title = note.Title,
-                Content = note.Content,
-                LastModified = DateTime.Now,
-                Created = DateTime.Now
-            };
+            savedNote = new() { AppUserId = note.AppUserId,
+                                Title = note.Title,
+                                Content = note.Content,
+                                LastModified = DateTime.Now,
+                                Created = DateTime.Now };
             _db.Notes.Add(savedNote);
         }
 
         await _db.SaveChangesAsync();
         return savedNote;
     }
-
-
-
 }

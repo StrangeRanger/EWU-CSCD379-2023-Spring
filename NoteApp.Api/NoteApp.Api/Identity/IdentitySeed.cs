@@ -35,12 +35,7 @@ public static class IdentitySeed
         // Seed Admin User
         if (await userManager.FindByEmailAsync("admin@noteapp.com") == null)
         {
-            var user = new AppUser
-            {
-                UserName = "admin@noteapp.com",
-                Email = "admin@noteapp.com",
-                Name = "Admin"
-            };
+            var user = new AppUser { UserName = "admin@noteapp.com", Email = "admin@noteapp.com", Name = "Admin" };
 
             IdentityResult result = userManager.CreateAsync(user, "6EXWKa@U").Result;
 
@@ -61,15 +56,11 @@ public static class IdentitySeed
         // Seed Standard User => Hunter T
         if (await userManager.FindByEmailAsync("hunter.t@noteapp.com") == null)
         {
-            var user = new AppUser
-            {
-                UserName = "hunter.t@noteapp.com",
-                Email = "hunter.t@noteapp.com",
-                Name = "Hunter T"
-            };
-            
+            var user =
+                new AppUser { UserName = "hunter.t@noteapp.com", Email = "hunter.t@noteapp.com", Name = "Hunter T" };
+
             IdentityResult result = userManager.CreateAsync(user, "2?i2rhDm").Result;
-            
+
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, Roles.Standard);
@@ -79,19 +70,14 @@ public static class IdentitySeed
                 throw new Exception(result.Errors.First().Description);
             }
         }
-        
+
         // Seed Standard User => Nolan P
         if (await userManager.FindByEmailAsync("nposey@noteapp.com") == null)
         {
-            var user = new AppUser
-            {
-                UserName = "nposey@noteapp.com",
-                Email = "nposey@noteapp.com",
-                Name = "Nolan P"
-            };
-            
+            var user = new AppUser { UserName = "nposey@noteapp.com", Email = "nposey@noteapp.com", Name = "Nolan P" };
+
             IdentityResult result = userManager.CreateAsync(user, "fch!cM3x").Result;
-            
+
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, Roles.Standard);
