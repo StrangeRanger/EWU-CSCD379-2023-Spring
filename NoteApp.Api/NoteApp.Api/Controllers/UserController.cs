@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.Api.Services;
 
@@ -15,6 +16,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<string> GetUser(string username)
     {
         return await _userService.GetUserIdAsync(username);

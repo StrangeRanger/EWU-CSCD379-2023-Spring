@@ -78,6 +78,7 @@ public class TokenController : Controller
     }
 
     [HttpPost("CreateUser")]
+    [Authorize]
     public async Task<IActionResult> CreateUser([FromBody] CreateUser createUser)
     {
         if (string.IsNullOrEmpty(createUser.UserName))

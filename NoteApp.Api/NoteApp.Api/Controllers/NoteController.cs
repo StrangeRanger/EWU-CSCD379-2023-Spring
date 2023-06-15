@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NoteApp.Api.Data;
 using NoteApp.Api.Dtos;
@@ -7,6 +8,7 @@ namespace NoteApp.Api.Controllers;
 
 [ApiController]
 [Route("Note")]
+[Authorize]
 public class NoteController : ControllerBase
 {
     private readonly NoteService _noteService;
