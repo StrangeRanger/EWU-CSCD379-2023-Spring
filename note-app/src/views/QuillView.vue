@@ -7,19 +7,17 @@
     <QuillEditor v-model:content="text" content-type="html" v-bind="options" />
   </v-card>
   <br />
-  <div class="text-center"> 
+  <div class="text-center">
     <v-btn @click="saveNote()" elevation="4">Save</v-btn>
   </div>
-  <v-dialog
-    v-model="noteSavedDialog"
-    max-width="400px"
-    persistent
-  >
+  <v-dialog v-model="noteSavedDialog" max-width="400px" persistent>
     <v-card>
       <v-card-title class="text-center">Your note was saved!</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn @click="noteSavedDialog = !noteSavedDialog" :to="'/quill/' + note.urlSuffix">Ok</v-btn>
+        <v-btn @click="noteSavedDialog = !noteSavedDialog" :to="'/quill/' + note.urlSuffix"
+          >Ok</v-btn
+        >
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -34,7 +32,7 @@ import { Note } from '@/scripts/models/note'
 import { SignInService } from '@/scripts/services/signInService'
 import { Services } from '@/scripts/services/services'
 import Axios from 'axios'
-import router from "@/router";
+import router from '@/router'
 
 const signInService = inject(Services.SignInService) as SignInService
 
