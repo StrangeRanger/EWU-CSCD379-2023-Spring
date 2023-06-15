@@ -18,6 +18,11 @@ const router = createRouter({
       component: QuillView
     },
     {
+      path: '/quill/:id',
+      name: 'quillId',
+      component: QuillView
+    },
+    {
       path: '/all',
       name: 'all',
       component: AllView

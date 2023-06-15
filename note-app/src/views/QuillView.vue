@@ -40,8 +40,15 @@ const options = {
   theme: 'snow'
 }
 
-console.log(router.currentRoute.value.params.text)
-
+if (router.currentRoute.value.params.id != null) {
+  Axios.get('Note/ByUrlSuffix?urlSuffix=' + router.currentRoute.value.params.id).then(
+    (response) => {
+      note.value = response.data as Note
+      title.value = note.value.title
+      text.value = JSON.parse(note.value.content)
+    }
+  )
+}
 
 function saveNote() {
   if (title.value == null || title.value == '') {
@@ -54,8 +61,6 @@ function saveNote() {
   // TODO: Modify console log of response...
   Axios.post('/Note/CreateOrEditNote', note.value).then((response) => {
     console.log(response)
-    const returnedNote = response.data as Note
-    router.addRoute({path: '/quill/' + returnedNote.urlSuffix, name: returnedNote.urlSuffix, component: QuillView})
   })
 }
 </script>
