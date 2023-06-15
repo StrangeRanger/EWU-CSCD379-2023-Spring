@@ -44,7 +44,7 @@ if (router.currentRoute.value.params.id != null) {
     (response) => {
       note.value = response.data as Note
       title.value = note.value.title
-      text.value = JSON.parse(note.value.content)
+      text.value = note.value.content
     }
   )
 }
@@ -55,7 +55,7 @@ function saveNote() {
   }
 
   note.value.title = title.value
-  note.value.content = JSON.stringify(text.value)
+  note.value.content = text.value
   note.value.appUserID = id
   // TODO: Modify console log of response...
   Axios.post('/Note/CreateOrEditNote', note.value).then((response) => {
