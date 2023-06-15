@@ -46,7 +46,7 @@ public class Seeder
 
         // IMPORTANT: Each note must be added individually to the database, so that the urlService can generate a unique
         // url suffix for each note.
-        for (var i = 0; i < 8; i++)
+        for (var i = 0; i < 9; i++)
         {
             var chosenUser = i switch {
                 0 => adminUserId,

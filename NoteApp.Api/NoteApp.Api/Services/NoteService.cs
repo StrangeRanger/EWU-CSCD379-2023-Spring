@@ -36,6 +36,7 @@ public class NoteService
     
         if (savedNote != null)
         {
+            savedNote.Title = note.Title;
             savedNote.Content = note.Content;
             savedNote.LastModified = DateTime.Now;
         }
