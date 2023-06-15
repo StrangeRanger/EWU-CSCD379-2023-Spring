@@ -12,8 +12,8 @@
         <tbody>
             <tr v-for="note in notes" :key="note.noteId">
                 <td class="text-center">{{ note.title }}</td>
-                <td class="text-center">{{ note.created }}</td>
-                <td class="text-center">{{ note.modified }}</td>
+                <td class="text-center">{{ note.stringCreated }}</td>
+                <td class="text-center">{{ note.stringModified }}</td>
                 <td class="text-center">
                     <v-btn :to="'/quill/' + note.urlSuffix" color="success">Edit</v-btn>
                 </td>
@@ -74,7 +74,13 @@ Axios.get('User?username=' + signInService.token.userName + '@noteapp.com').then
   (response) => (id = response.data) 
 ).finally(() => {
     Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
-        (response) => { notes.value = response.data as Note[]}
+        (response) => {
+           notes.value = response.data as Note[]
+           notes.value.forEach(note => {
+              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
+              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
+           });
+        }  
     )}
 )
 
@@ -82,7 +88,13 @@ function previousPage() {
   if (page > 0) {
     page--
     Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
-    (response) => { notes.value = response.data as Note[]}
+    (response) => { 
+      notes.value = response.data as Note[]
+      notes.value.forEach(note => {
+              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
+              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
+           });
+    }
     )
   }
 }
@@ -91,7 +103,13 @@ function nextPage() {
   if ( !(notes.value.length < 10) ) {
     page++
     Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
-    (response) => { notes.value = response.data as Note[]}
+    (response) => { 
+      notes.value = response.data as Note[]
+      notes.value.forEach(note => {
+              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
+              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
+           });
+    }
     )
   }
 }
@@ -107,7 +125,13 @@ function submitDeleteNote(){
         console.log(response)
         removeNoteDialog.value = !removeNoteDialog.value
         Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
-            (response) => { notes.value = response.data as Note[]}
+            (response) => { 
+              notes.value = response.data as Note[]
+              notes.value.forEach(note => {
+              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
+              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
+           });
+            }
         )
     })
 }
