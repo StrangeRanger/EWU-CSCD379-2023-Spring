@@ -21,7 +21,7 @@ public class NoteController : ControllerBase
     {
         return await _noteService.GetNoteAsync(noteId);
     }
-    
+
     [HttpGet("ByUrlSuffix")]
     public async Task<Notes?> GetNote(string urlSuffix)
     {

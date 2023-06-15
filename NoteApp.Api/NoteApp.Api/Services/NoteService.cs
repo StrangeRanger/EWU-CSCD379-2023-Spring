@@ -17,7 +17,7 @@ public class NoteService
     {
         return await _db.Notes.FirstOrDefaultAsync(w => w.NoteId == noteId);
     }
-    
+
     public async Task<Notes?> GetNoteAsync(string urlSuffix)
     {
         return await _db.Notes.FirstOrDefaultAsync(w => w.UrlSuffix == urlSuffix);
@@ -29,11 +29,11 @@ public class NoteService
         {
             throw new ArgumentNullException("The note is null");
         }
-    
+
         var savedNote =
             await _db.Notes.FirstOrDefaultAsync(w => w.NoteId == note.NoteId && w.AppUserId == note.AppUserId);
         var urlService = new UrlService(_db);
-    
+
         if (savedNote != null)
         {
             savedNote.Title = note.Title;
@@ -46,11 +46,11 @@ public class NoteService
                                 Title = note.Title,
                                 Content = note.Content,
                                 LastModified = DateTime.Now,
-                                UrlSuffix =  urlService.GenerateUniqueUrlSuffixAsync().Result,
+                                UrlSuffix = urlService.GenerateUniqueUrlSuffixAsync().Result,
                                 Created = DateTime.Now };
             _db.Notes.Add(savedNote);
         }
-    
+
         await _db.SaveChangesAsync();
         return savedNote;
     }

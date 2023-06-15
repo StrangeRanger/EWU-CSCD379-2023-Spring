@@ -11,7 +11,7 @@ public class UrlService
     {
         _db = db;
     }
-    
+
     public async Task<string> GenerateUniqueUrlSuffixAsync(int suffixLength = 12)
     {
         var suffix = GenerateRandomString(suffixLength);
