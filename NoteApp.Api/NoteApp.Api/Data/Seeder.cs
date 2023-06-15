@@ -61,7 +61,7 @@ public class Seeder
             };
 
             var note = new Notes { Title = $"Note {i + 1}",
-                                   Content = $"Content {i + 1}",
+                                   Content = "<h1>Test</h1><h2>Test</h2><p><strong>test</strong></p><p><em>test</em></p><p><u>test</u></p><p><strong><em><u>test</u></em></strong></p>",
                                    Created = DateTime.Now,
                                    LastModified = DateTime.Now,
                                    UrlSuffix = urlService.GenerateUniqueUrlSuffixAsync().Result,

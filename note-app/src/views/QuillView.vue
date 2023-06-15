@@ -4,7 +4,7 @@
     <v-text-field v-model="title" label="Title"></v-text-field>
   </div>
   <v-card style="height: 90%; max-width: 1280px" id="quillEditor" elevation="4">
-    <QuillEditor v-model:content="text" v-bind="options" />
+    <QuillEditor v-model:content="text" content-type="html" v-bind="options" />
   </v-card>
   <br />
   <div class="text-center">
