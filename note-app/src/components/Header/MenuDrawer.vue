@@ -3,7 +3,7 @@
 --->
 
 <template>
-  <v-navigation-drawer location="right">
+  <v-navigation-drawer location="right" temporary="">
     <v-card rounded="lg" class="mt-6" elevation="0">
       <v-card-title id="card-title" elevation="6"> <v-icon>mdi-menu</v-icon> Menu </v-card-title>
 
@@ -25,9 +25,3 @@
     </v-card>
   </v-navigation-drawer>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const toggleDialog = ref(true)
-</script>
