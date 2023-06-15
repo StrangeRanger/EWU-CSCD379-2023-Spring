@@ -15,11 +15,7 @@
         </v-list-item>
 
         <v-list-item>
-          <v-btn to="/all" variant="outlined" elevation="24">View all notes</v-btn>
-        </v-list-item>
-
-        <v-list-item>
-          <v-btn to="/quill" variant="outlined" elevation="24">New note</v-btn>
+          <v-btn to="/quill" variant="outlined" elevation="24">New Note</v-btn>
         </v-list-item>
 
         <v-list-item>
