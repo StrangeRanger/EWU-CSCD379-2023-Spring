@@ -23,7 +23,7 @@ public class Seeder
         var nolanUserId = "";
         var urlService = new UrlService(db);
         const string content =
-            "<h1>Test</h1><h2>Test</h2><p><strong>test</strong></p><p><em>test</em></p><p><u>test</u></p><p><strong><em><u>test</u></em></strong></p>";
+            "<h1>Header 1</h1><p><strong>Bold</strong> <em>Italicize</em> <u>Underline</u> <s>Crossed out</s> <sub>Sub</sub>script <sup>Super</sup>script</p><p><span style=\"color: rgb(0, 102, 204);\">Blue</span> <span style=\"color: rgb(230, 0, 0);\">Red</span> <span style=\"color: rgb(0, 138, 0);\">Green</span></p>";
 
         // Admin User Id
         var adminUser = db.AppUsers.FirstOrDefault(u => u.UserName == "admin@noteapp.com");
