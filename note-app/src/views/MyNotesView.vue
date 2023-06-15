@@ -1,37 +1,43 @@
 <template>
-  <v-card>
-    <v-card-item>
-      <v-table>
-        <thead>
-          <tr>
-            <th class="text-center">Title</th>
-            <th class="text-center">Created</th>
-            <th class="text-center">Last Modified</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="note in notes" :key="note.noteId">
-            <td class="text-center">{{ note.title }}</td>
-            <td class="text-center">{{ note.stringCreated }}</td>
-            <td class="text-center">{{ note.stringModified }}</td>
-            <td class="text-center">
-              <v-btn :to="'/quill/' + note.urlSuffix" color="success">Edit</v-btn>
-            </td>
-            <td class="text-center">
-              <v-btn @click="deleteNoteDialog(note)" color="red">Delete</v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </v-table>
-    </v-card-item>
+  <v-sheet
+    class="align-center justify-center flex-wrap text-center mx-auto pa-10"
+    elevation="1"
+    max-width="980px"
+    width="100%"
+    rounded
+  >
+    <v-table>
+      <thead>
+        <tr>
+          <th class="text-center">Title</th>
+          <th class="text-center">Created</th>
+          <th class="text-center">Last Modified</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="note in notes" :key="note.noteId">
+          <td class="text-center">{{ note.title }}</td>
+          <td class="text-center">{{ note.stringCreated }}</td>
+          <td class="text-center">{{ note.stringModified }}</td>
+          <td class="text-center">
+            <v-btn :to="'/quill/' + note.urlSuffix" color="success">Edit</v-btn>
+          </td>
+          <td class="text-center">
+            <v-btn @click="deleteNoteDialog(note)" color="red">Delete</v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
 
-    <v-card-actions>
-      <v-spacer></v-spacer>
+    <br />
+    <div>
+      <v-spacer />
       <v-btn @click="previousPage()" variant="outlined">Prev</v-btn>
+
       <v-btn @click="nextPage()" variant="outlined">Next</v-btn>
-      <v-spacer></v-spacer>
-    </v-card-actions>
-  </v-card>
+      <v-spacer />
+    </div>
+  </v-sheet>
 
   <v-dialog
     v-model="removeNoteDialog"

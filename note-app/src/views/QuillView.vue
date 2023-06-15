@@ -1,15 +1,13 @@
 <template>
-  <!--<v-card style="max-width: 1280px;" id="quillEditor">-->
-  <div>
-    <v-text-field v-model="title" label="Title"></v-text-field>
-  </div>
-  <v-card style="height: 80%; max-width: 1280px" id="quillEditor" elevation="4">
-    <QuillEditor v-model:content="text" content-type="html" v-bind="options" />
-  </v-card>
-  <br />
-  <div class="text-center">
+  <v-sheet elevation="3" height="100%" class="text-center pa-10" rounded>
+    <v-text-field v-model="title" label="Title" />
+    <v-sheet class="pb-12">
+      <QuillEditor v-model:content="text" content-type="html" v-bind="options" />
+    </v-sheet>
+    <br />
     <v-btn @click="saveNote()" elevation="4">Save</v-btn>
-  </div>
+  </v-sheet>
+
   <v-dialog v-model="noteSavedDialog" max-width="400px" persistent>
     <v-card>
       <v-card-title class="text-center">Your note was saved!</v-card-title>

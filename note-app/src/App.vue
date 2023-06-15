@@ -15,9 +15,10 @@
       <v-app-bar-nav-icon @click="menu = !menu"></v-app-bar-nav-icon>
     </v-app-bar>
 
+    <MenuDrawer v-model="menu" />
+
     <v-main>
       <RouterView />
-      <MenuDrawer v-model="menu" />
     </v-main>
   </v-app>
 </template>

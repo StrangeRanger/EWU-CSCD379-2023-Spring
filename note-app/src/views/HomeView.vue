@@ -1,15 +1,26 @@
 <template>
-  <!-- TODO: Change min width of v-responsive. -->
-  <v-responsive min-width="300px">
-    <v-card>
-      <v-card-title class="justify-center">Welcome To Note App!</v-card-title>
-      <v-card-item>
-        <v-card-text> </v-card-text>
-        <v-card-actions class="justify-center">
-          <v-btn to="/quill" variant="tonal" rounded="xl" elevation="6">Create New Note</v-btn>
-          <v-btn to="/mynotes" variant="outlined" rounded="xl" elevation="6">My Notes</v-btn>
-        </v-card-actions>
-      </v-card-item>
-    </v-card>
-  </v-responsive>
+  <v-sheet
+    class="d-flex align-center justify-center flex-wrap text-center mx-auto pa-10"
+    elevation="1"
+    height="250px"
+    max-width="980px"
+    width="100%"
+    rounded
+  >
+    <h1>Welcome To Note App!</h1>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="6">
+          <v-card class="card-button" to="/quill" elevation="6" variant="outlined">
+            <v-card-title class="justify-center">New Note</v-card-title>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card class="card-button" to="/mynotes" elevation="6" variant="outlined">
+            <v-card-title class="justify-center">My Notes</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-sheet>
 </template>
