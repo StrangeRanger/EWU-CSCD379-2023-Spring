@@ -23,11 +23,6 @@ const router = createRouter({
       component: QuillView
     },
     {
-      path: '/all',
-      name: 'all',
-      component: AllView
-    },
-    {
       path: '/mynotes',
       name: 'mynotes',
       component: MyNotesView

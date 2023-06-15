@@ -3,11 +3,11 @@
   <div>
     <v-text-field v-model="title" label="Title"></v-text-field>
   </div>
-  <v-card style="height: 90%; max-width: 1280px" id="quillEditor" elevation="4">
+  <v-card style="height: 80%; max-width: 1280px" id="quillEditor" elevation="4">
     <QuillEditor v-model:content="text" content-type="html" v-bind="options" />
   </v-card>
   <br />
-  <div class="text-center">
+  <div class="text-center"> 
     <v-btn @click="saveNote()" elevation="4">Save</v-btn>
   </div>
 </template>
@@ -21,7 +21,6 @@ import { SignInService } from '@/scripts/services/signInService'
 import { Services } from '@/scripts/services/services'
 import Axios from 'axios'
 import router from "@/router";
-import QuillView from '@/views/QuillView.vue'
 
 const signInService = inject(Services.SignInService) as SignInService
 
