@@ -22,6 +22,8 @@ public class Seeder
         var hunterUserId = "";
         var nolanUserId = "";
         var urlService = new UrlService(db);
+        const string content =
+            "<h1>Test</h1><h2>Test</h2><p><strong>test</strong></p><p><em>test</em></p><p><u>test</u></p><p><strong><em><u>test</u></em></strong></p>";
 
         // Admin User Id
         var adminUser = db.AppUsers.FirstOrDefault(u => u.UserName == "admin@noteapp.com");
@@ -61,7 +63,7 @@ public class Seeder
             };
 
             var note = new Notes { Title = $"Note {i + 1}",
-                                   Content = "<h1>Test</h1><h2>Test</h2><p><strong>test</strong></p><p><em>test</em></p><p><u>test</u></p><p><strong><em><u>test</u></em></strong></p>",
+                                   Content = content,
                                    Created = DateTime.Now,
                                    LastModified = DateTime.Now,
                                    UrlSuffix = urlService.GenerateUniqueUrlSuffixAsync().Result,
