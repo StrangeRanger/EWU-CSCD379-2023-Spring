@@ -10,6 +10,20 @@
   <div class="text-center"> 
     <v-btn @click="saveNote()" elevation="4">Save</v-btn>
   </div>
+  <v-dialog
+    v-model="noteSavedDialog"
+    max-width="400px"
+    persistent
+  >
+    <v-card>
+      <v-card-title class="text-center">Your note was saved!</v-card-title>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="noteSavedDialog = !noteSavedDialog" :to="'/quill/' + note.urlSuffix">Ok</v-btn>
+        <v-spacer></v-spacer>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup lang="ts">
@@ -28,6 +42,7 @@ let id = ''
 let text = ref<string>('')
 let title = ref<string>('')
 let note = ref<Note>(new Note())
+let noteSavedDialog = ref<boolean>(false)
 
 // TODO: Modify so we don't hardcode the email address...
 Axios.get('User?username=' + signInService.token.userName + '@noteapp.com').then(
@@ -60,6 +75,8 @@ function saveNote() {
   // TODO: Modify console log of response...
   Axios.post('/Note/CreateOrEditNote', note.value).then((response) => {
     console.log(response)
+    note.value = response.data as Note
+    noteSavedDialog.value = !noteSavedDialog.value
   })
 }
 </script>
