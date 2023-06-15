@@ -76,10 +76,7 @@ Axios.get('User?username=' + signInService.token.userName + '@noteapp.com').then
     Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
         (response) => {
            notes.value = response.data as Note[]
-           notes.value.forEach(note => {
-              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
-              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
-           });
+           dateTimeFormat(notes.value)
         }  
     )}
 )
@@ -90,10 +87,7 @@ function previousPage() {
     Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
     (response) => { 
       notes.value = response.data as Note[]
-      notes.value.forEach(note => {
-              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
-              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
-           });
+      dateTimeFormat(notes.value)
     }
     )
   }
@@ -105,10 +99,7 @@ function nextPage() {
     Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
     (response) => { 
       notes.value = response.data as Note[]
-      notes.value.forEach(note => {
-              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
-              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
-           });
+      dateTimeFormat(notes.value)
     }
     )
   }
@@ -127,12 +118,16 @@ function submitDeleteNote(){
         Axios.get('Note/GetUsersNotes?appUserId='+ id +'&page='+ page).then(
             (response) => { 
               notes.value = response.data as Note[]
-              notes.value.forEach(note => {
-              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
-              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
-           });
+              dateTimeFormat(notes.value)
             }
         )
     })
+}
+
+function dateTimeFormat(notes: Note[]){
+  notes.forEach(note => {
+              note.stringCreated = note.created.toString().slice(0, 10) + ', ' + note.created.toString().slice(12, 19)
+              note.stringModified = note.lastModified.toString().slice(0, 10) + ', ' + note.lastModified.toString().slice(12, 19)
+           });
 }
 </script>
