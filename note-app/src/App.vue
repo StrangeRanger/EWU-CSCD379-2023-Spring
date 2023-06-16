@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <span class="bg"></span>
     <v-app-bar class="py-1 px-6 toolbar" :elevation="3">
       <v-toolbar-title>
         <RouterLink to="/">

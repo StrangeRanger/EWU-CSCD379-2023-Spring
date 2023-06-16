@@ -1,5 +1,5 @@
 <template>
-  <v-sheet elevation="3" height="100%" class="text-center pa-10" rounded>
+  <v-sheet elevation="3" class="text-center pa-10" rounded>
     <v-text-field v-model="title" label="Title" />
     <v-sheet class="pb-12">
       <QuillEditor v-model:content="text" content-type="html" v-bind="options" />
